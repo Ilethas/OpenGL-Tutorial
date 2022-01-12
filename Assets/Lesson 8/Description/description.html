@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Symulacja wody - fale Gerstnera</h1></center>
+
+<h1>Czym są fale Gerstnera?</h1>
+<p>W symulacji wody często używane są fale sinusoidalne. Mają one jednak zaokrąglony wygląd.<br /> Może to być dobre dla malutkiego, spokojnego stawu.
+Ale z reguły dla efektywnej symulacji chcemy ostrzejszych szczytów fal i głębszych "żłobów" między nimi.<br /> W tym celu używamy fal Gerstnera.
+</p>
+<p>Funkcja fali Gerstnera została opracowana na długo przed grafiką komputerową, aby zamodelować fizycznie wodę w oceanie.<br />
+Dzięki temu, fale Gerstnera dostarczają pewne subtelności ruchu powierzchni wody, które są przekonujące bez bycia zbyt topornymi.<br />
+Fale Gerstnera mają tą zaletę (często pomijaną), że tworzą ostrzejsze grzebienie (szczyty) fal poprzez przesuwanie wierzchołków w kierunku grzebienia.<br />
+Dzięki temu w najostrzejszych miejscach na powierzchni jest największa koncentracja wierzchołków.<br />
+Widać to np. na poniższym obrazie:</p>
+<img src="wave.jpg" alt="Wierzchołki w fali Gerstnera" hspace="20" vspace="10">
+<p>Znając funkcję fali Gerstnera, możemy zasymulować wodę poprzez wzięcie płaszczyzny z dużą liczbą wierzchołków i "offsetowanie" jej zgodnie z funkcją.
+
+</body>
+</html>

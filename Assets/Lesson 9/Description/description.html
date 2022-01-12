@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Bufor szablonowy - zaznaczanie obiektów</h1></center>
+
+<h1>Czym jest bufor szablonowy?</h1>
+<p>
+Bufor szablonowy (ang. stencil buffer) to jeden z buforów stosowanych w systemach graficznych do selektywnego wyświetlania pikseli obrazu.<br />
+Kiedy bufor szablonowy jest aktywny, wyświetlanie piksela obrazu determinuje dodatkowy test na odpowiadającej mu wartości bufora (twz. stencil test).<br />
+Ponieważ test jest oparty o zawartość bufora, a bufor (zazwyczaj) zawiera po 8 bitów na tzw. "stencil value", mamy łącznie 256 różnych stencil values na dany piksel/fragment.<br />
+Możemy ustawić te wartości zgodnie z naszymi potrzebami i potem odrzucać lub zachowywać fragmenty zależnie od tego czy dany fragment ma pewną wartość.<br />
+Prosty przykład pomagający w zrozumieniu tego widoczny jest poniżej:</p>
+<img src="stencil.png" alt="Przykład działania bufora szablonowego" hspace="20" vspace="10">
+<p>
+Bufor szablonowy jest najpierw wypełniany zerami, następnie ustawiana jest w nim prostokątna obwódka z jedynek.<br /> Fragmenty sceny które są renderowane (pozostałe są odrzucane) to te, gdzie 
+stencil value danego fragmentu wynosi 1.
+</p>
+<h1>Jak wykorzystać to do zaznaczania obiektów?</h1><p>
+Sposób tworzenia obwódek dla zaznaczonych obiektów polega mniej więcej na tym, że każdy obiekt skalujemy o małą wartość (tak by był trochę większy).<br /> Ustawiając odpowiednie wartości stencil values w buforze,
+rysujemy jeszcze raz większy obiekt, ale (używając bufora szablonowego) odrzucając fragmenty, które należą do oryginalnego obiektu.<br />
+Ponieważ został on troszkę powiększony, to po odrzuceniu fragmentów zostaje tylko trochę większa od oryginalnego fragmentu obwódka.<br />
+Jest to oczywiście rysowane jakimś konkretnym kolorem krawędzi, żeby było widać to zaznaczenie.<br />
+Efekty wyglądają następująco:</p>
+<img src="stencil2.png" alt="Obiekt po zaznaczeniu z użyciem bufora" hspace="20" vspace="10"><p>
+Algorytm takiego zaznaczania obiektów jest często obecny w grach, do wizualizacji wybranych obiektów (np. jednostek w grach strategicznych).
+</p>
+</body>
+</html>

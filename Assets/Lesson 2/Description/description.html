@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Normal mapping</h1></center>
+
+<h1>Czym jest mapowanie normalnych?</h1>
+<p>
+Wszystkie sceny wypełnione są poligonami, a każdy z nich składa się z setek lub tysięcy płaskich trójkątów.<br /> Zwiększamy realizm tych obiektów nakładając na nie tekstury 2D aby dotać detali,
+ukrywając fakt, że te kształty składają się z małych płaskich trójkątów.<br /> Chociaż tekstury są pomocne, to jeśli mocniej się przyjrzeć, wciąż łatwo da się zauważyć płaską powierzchnię pod spodem.
+<br />Niestety większość powierzchni z prawdziwego świata nie jest płaskich i zawiera wiele wypukłości i związanych z nimi detali.</p>
+<p>
+Weźmy dla przykładu ścianę złożoną z cegieł. Jest to dość żłożona powierzchnia i w oczywisty sposób nie w pełni płaska: zawiera wklęsłe paski cementu oraz wiele mniejszych dziurek czy pęknięć.<br />
+Po wyświetleniu takiej powierzchni ceglanej w oświetlonej scenie, iluzja realizmu znika. <br />Tak wygląda tekstura cegieł nałożona na płaską powierzchnię i oświetlona światłem punktowym:</p>
+<img src="mapping_flat.png" alt="Przykład oświetlenia bez mapowania normalnego" hspace="20" vspace="10">
+<p> Oświetlenie nie bierze pod uwagę pęknięć, dziur i kompletnie ignoruje wklęsłości pomiędzy poszczególnymi cegłami; powierzchnia wygląda na zupełnie płaską.<br />
+Potrzeba jakiegoś sposobu by poinformować jakoś system oświetlenia o wszystkich detalach głębokości i wypukłości powierzchni.<br /> Takim sposobem właśnie będzie mapowanie normalnych.</p>
+<h1>Na czym polega problem?</h1>
+<p> Dlaczego powierzchnia oświetlona jest tak, jakby była zupełnie płaska? Z powodu wektora normalnego powierzchni.<br />
+Z punktu widzenia algorytmu oświetlenia, jedynym sposobem na zdeterminowanie kształtu obiektu jest poprzez prostopadły wektor normalny.<br />
+Ceglana powierzchnia ma tylko jeden wektor normalny, w rezultacie powierzchnia jest równomiernie oświetlona, na podstawie kierunku tego wektora.</p>
+<h1>Jak go rozwiązać?</h1>
+<p> Co gdyby zamiast wektora normalnego powierzchni, który jest taki sam dla każdego fragmentu, używać normalnych fragmentowych, innych dla każdego kawałka?<br />
+W ten sposób wektory normalne różniłyby się trochę od siebie, w zależności od małych detali powierzchni, dając dużo bardziej złożoną powierzchnię:</p>
+<img src="normal_mapping_surfaces.png" alt="Porównanie wektorów normalnych bez i z mapowaniem" hspace="20" vspace="10">
+<p> Używając osobnych normalnych dla każdego fragmentu, możemy "oszukać" oświetlenie tak, by uwierzyło, że powierzchnia składa się z wielu małych planów (prostopadłych do wektorów normalnych),
+dając powierzchni niesamowite zwiększenie jakości detali.<br /> Tą technikę używania normalnych wektorów, a nie normalnej powierzchni, nazywamy właśnie mapowaniem normalnym (ang. normal mapping).
+<br />Przykład różnicy w jakości widać poniżej:</p>
+<img src="normal_mapping_compare.png" alt="Porównanie powierzchni bez mapowania i z" hspace="20" vspace="10">
+<p>Ponieważ zmieniamy tylko wektory normalne (z "wektor-na-powierzchnię" na "wektor-na-fragment"), bez modyfikacji algorytmów oświetlenia, koszt tej operacji nie jest duży, a efekty są ogromne.
+</p>
+</body>
+</html>

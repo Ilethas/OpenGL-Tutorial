@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Toon outline shader</h1></center>
+
+<h1>Co to jest toon shading?</h1>
+<p>
+Toon shading jest nie-fotorealistyczną techniką renderowania.<br />
+Celem toon shadingu jest sprawić, żeby model (lub scena) wyglądały kreskówkowo.<br />
+Są różne sposoby osiągnięcia takiego efektu. Zostanie omówiony ten używany w ramach lekcji.
+</p>
+<h1>Jak to działa?</h1>
+<p>
+Podstawą toon shadingu jest to, że zamiast ciągłej, płynnej zmiany koloru, mamy nagłe skoki, a potem przez pewien czas nie występuje zmiana.<br />
+Zamiast przyjmować, że mogą wyjść jakiekolwiek wartości od 0.0 do 1.0, dzielimy to na strefy wartości.<br />
+Tworzą się więc duże regiony, można powiedzieć paski, takiego samego koloru.<br />
+Porównanie widać na poniższym obrazku (u góry widać normalne przejście, na dole przejścia w toon shadingu):</p>
+<img src="toon.png" alt="Porównanie przejść koloru" hspace="20" vspace="10">
+<p>
+Zmniejszona ilość kolorów i nagłe przejścia pomiędzy różnymi częściami obiektu/sceny nadają już trochę kreskówkowego wyglądu, ale to jeszcze nie wszystko.</p>
+<p>
+Do modeli dodawana jest również obwódka. W tym celu używany jest filtr Sobela w celu wykrywania krawędzi modelu i ich uwydatnienia.<br />
+Po tych dwóch operacjach otrzymujemy finałowy efekt.<br />
+Przykład modelu bez i z toon shadingiem:</p>
+<img src="toon2.jpg" alt="Porównanie modelu" hspace="20" vspace="10">
+</body>
+</html>
