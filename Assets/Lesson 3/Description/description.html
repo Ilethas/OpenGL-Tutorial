@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Shadow mapping</h1></center>
+
+<h1>Czym właściwie są cienie?</h1>
+<p>
+Cień to rezultat braku światła wynikającego z zasłonięcia; kiedy promienie światłą nie uderzają w obiekt ponieważ jest on zasłonięty przez inny obiekt, w takim wypadku mamy cień.<br />
+Cienie dodają sporo realizmu oświetlonej scenie i sprawiają, że oglądającemu scenę łatwiej zaobserwować	zależności przestrzenne pomiędzy obiektami.
+Dodają scenie i obiektom pewnego poczucia głębi.<br /> Dla przykładu zobaczyć możemy tą samą scene bez i z cieniami:</p>
+<img src="shadows1.png" alt="Porównanie sceny bez i z cieniami" hspace="20" vspace="10">
+<p>
+Dopiero przy obecnych cieniach widać np, że jeden z sześcianów jest zawieszony w powietrzu. <br />Zależności między obiektami stają się nagle bardziej jasne.<br />
+Warto więc zastosować jakiś algorytm który oddałby cienie.
+</p>
+<h1>Jak działa shadow mapping?</h1>
+<p>
+Shadow mapping to właśnie jedna z technik (używana np. w wielu grach komputerowych) symulacji cieni, która daje dobre wyniki i jest stosunkowo łatwa do zaimplementowania.<br /></p>
+<p>
+Idea mapowania cieni jest całkiem prosta: renderujemy scenę z punktu widzenia źródła światła i wszystko, co widzimy z perspektywy światła, jest oświetlone, a wszystko co niewidoczne, jest w cieniu.<br />
+Czyli gdybyśmy mieli w scenie jakiś sześcian, światło widząc go nie będzie widzieć fragmentu podłogi za nim, więc ten fragment będzie w cieniu.<br />
+Często stosowaną metodą jest przechowanie w teksturze wartości głębokości w scenie, tworząc tzw. mapę głębokości (ang. depth map).<br />
+Korzystając z tej mapy znajdujemy punkty widoczne z punktu widzenia źródła światła i determinujemy jakie fragmenty znajdują się w cieniu.<br /></p>
+<p>
+Poniżej widać przykład, na którym niebieskie linie reprezentują miejsca, które światło widzi, a czarne linie fragmenty niewidoczne, czyli będące w cieniu.</p>
+<img src="shadows2.png" alt="Przykład shadow mappingu" hspace="20" vspace="10">
+<h1>Co umożliwia lekcja?</h1><p>
+Lekcja ma aktywowany shadow mapping, możemy więc ustawiając różne światła o innych parametrach testować, w jaki sposób padają cienie i jak sprawia się shadow mapping.</p>
+
+
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Bloom</h1></center>
+
+<h1>Na czym to polega?</h1>
+<p>
+Czasem ciężko jest w poprawny sposób zobrazować w scenie bardzo intensywne, jasne światła i regiony sceny, ponieważ zakres intensywności monitora jest limitowany.<br />
+Jednym ze sposobów na wyróżnienie jasnych miejsc jest nadanie im pewnej poświaty, sprawienie, żeby światło przeciekało/wylewało się dookoła źródła światła. <br />
+Daje to skuteczną iluzję sugerującą, że dane źródło światła lub oświetlony fragment sceny jest intensywnie jasny. <br />
+Bloom to właśnie ten efekt wyciekającego światła/poświaty. Jest to efekt post-processing, jego efekty można zobaczyć na obrazku poniżej.
+</p>
+<img src="bloom1.png" alt="Po lewej obraz bez efektu bloom. Po prawej z nim." hspace="20" vspace="10">
+<p>
+Bloom daje zauważalną wizualną sugestię, które miejsca/obiekty są źródłami intensywnego światła. <br />
+Wykonany w subtelny sposób (z czym wiele gier nie radzi sobie najlepiej) wykorzystanie bloom pozwala skutecznie zwiększyć dramatyzm sceny.<br />
+Bloom działa najlepiej w połączeniu z HDR. Niektórzy mylnie sądzą, że jest to to samo, ale to oddzielne techniki używane w zupełnie innym celu.<br />
+Możliwym jest więc stosowanie HDR bez Bloom i odwrotnie. Chodzi jedynie o to, że zastosowanie HDR czyni implementację Bloom bardziej efektywną.<br /></p>
+<h1>Jak zaimplementować Bloom?</h1>
+<p>
+Renderujemy najpierw scenę jak normalnie. Następnie dokonujemy ekstrakcji colorbuffera HDR i obrazu sceny z widocznymi jedynie jasnymi regionami. <br />
+Ten obraz z jasnymi regionami jest następnie rozmywany i rezultat dodawany jest na górę oryginalnego obrazu sceny HDR. <br />
+Obrazek poniżej jest krótkim podsumowaniem potrzebnych do zaimplementowania Bloom kroków: </p>
+<p>HDR pierwotnie używane było w fotografii, gdzie fotograf wykonywał wiele zdjęć tej samej sceny, ale z innymi poziomami ekspozycji, uchwytując dzięki temu szeroki zakres wartości kolorów.<br />
+Po ich połączeniu otrzymywany był obraz HDR, z dużą zawartością detali, zarówno dla ciemnych miejsc, jak i jasnych.<br />
+Poniżej przykład tego, jak pewne detale są widoczne na danych poziomach ekspozycji, a na innych nie:</p>
+<img src="bloom2.png" alt="Kroki potrzebne do implementacji Bloom." hspace="20" vspace="10">
+<h1>Co należy pamiętać</h1>
+<p>
+Jakość/wygląd naszego efektu Bloom będzie zależeć w dużej mierze od zastosowanego efektu rozmycia (tutaj opcji jest bardzo wiele i decyzja należy do programisty).<br />
+Należy też pamiętać, że możemy wykorzystać efekt Bloom bez użycia HDR.
+</p>
+</body>
+</html>

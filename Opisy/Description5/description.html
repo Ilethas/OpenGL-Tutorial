@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>HDR</h1></center>
+
+<h1>Problemy w oświetleniu</h1>
+<p>
+Jasność i wartości kolorów są domyślnie zamknięte pomiędzy 0.0 i 1.0 kiedy są przechowywane w buforze ramki OpenGL.<br />
+Brzmi to na pozór niewinnie, ale oznacza, że próbuje się wszystkie wartości kolorów i świateł próbuje się umieścić gdzieś w tym zakresie, tak by pasowały do sceny.<br />
+To często działa całkiem dobrze i daje przyzwoite rezultaty, ale co jeśli znajdziemy się w wyjątkowo jasnej strefie o wielu źródłach światła, których suma przekracza 1.0?<br />
+Odpowiedzią jest to, że wszystkie fragmenty które mają jasność lub kolor ponad 1.0 zostają "ściśnięte" do 1.0, co nie wygląda najlepiej.<br />
+Przykład na poniższym obrazku:
+</p>
+<img src="hdr1.png" alt="Przykład strefy o bardzo wysokiej jasności" hspace="20" vspace="10">
+<p>
+Ponieważ wartości kolorów wielu fragmentów są ściskane do 1.0, każdy jasny fragment jest pokryty w dużej części takim samym białym kolorem, tracąc wiele detali i zyskując nienaturalny wygląd.<br />
+Rozwiązaniem dla tego problemu mogłoby być na przykład zredukowanie siły źródeł światła, aby upewnić się, że żaden fragment sceny nie będzie jaśniejszy niż 1.0.<br />
+Nie jest to jednak dobre rozwiązanie, ponieważ zmusza do użycia nierealistycznych parametrów oświetlenia. Lepszym rozwiązaniem jest pozwolenie wartościom kolorów na tymczasowe wykroczenie ponad 1.0,<br />
+a potem ich transformacja do oryginalnego zakresu 0.0-1.0 jako finałowy krok, bez utraty detali.</p>
+<h1>Czym więc jest HDR?</h1>
+<p>
+Chociaż monitory mają ograniczenie i wyświetlają kolory w zakresie od 0.0 do 1.0, nie ma takiego limitu jeśli chodzi o obliczenia związane z oświetleniem.<br />
+Pozwalając kolorom fragmentów przekroczyć 1.0, uzyskujemy dużo większy zakres kolorów, na których możemy pracować - to właśnie nazywamy HDR (ang. high dynamic range).<br />
+Z użyciem HDR jasne fragmenty mogą być naprawdę jasne, ciemne mogą być jeszcze ciemniejsze, a w obu mogą być widoczne detale.</p>
+<p>HDR pierwotnie używane było w fotografii, gdzie fotograf wykonywał wiele zdjęć tej samej sceny, ale z innymi poziomami ekspozycji, uchwytując dzięki temu szeroki zakres wartości kolorów.<br />
+Po ich połączeniu otrzymywany był obraz HDR, z dużą zawartością detali, zarówno dla ciemnych miejsc, jak i jasnych.<br />
+Poniżej przykład tego, jak pewne detale są widoczne na danych poziomach ekspozycji, a na innych nie:</p>
+<img src="hdr2.png" alt="Ta sama scena dla kilku poziomów ekspozycji" hspace="20" vspace="10">
+<p>Podobnie działa ludzkie oko - kiedy jest mało światła, oko adaptuje się do sytuacji i widzimy lepiej ciemne miejsca, a jeśli jest bardzo jasno, mamy przypadek odwrotny.</p>
+<h1>Działanie HDR</h1>
+<p>
+Z użyciem HDR pozwalamy podczas renderowania sceny na dużo większy zakres wartości kolorów, dzięki temu można zebrać wiele zarówno bardzo jasnych jak i bardzo ciemnych detali sceny.<br />
+Transformujemy następnie wszystkie wartości HDR z powrotem do poprzedniego zakresu LDR (ang. low dynamic range) wynoszącego [0.0, 1.0].<br />
+Proces konwersji wartości HDR do LDR nazywamy "tone mapping". Algorytmów tone mapping istnieje wiele, od algorytmu zależy jak będzie prezentował się wynik na końcu.<br />
+Algorytmy często mogą skupiać się bardziej na ciemnych lub bardziej na jasnych fragmentach.<br />
+Przykład tego, jak z użyciem tone mappingu i HDR możemy zobaczyć dużo więcej detali widać poniżej:</p>
+<img src="hdr3.jpg" alt="Sześć obrazów wejściowych" hspace="20" vspace="10">
+<p>
+Ta sama scena/obraz dla sześciu różnych poziomów ekspozycji.<br />
+
+Po odpowiednim procesie tone mapping obraz wynikowy może wyglądać np. tak:</p>
+<img src="hdr4.jpg" alt="Obraz po tone mappingu" hspace="20" vspace="10">
+<h1>Działanie lekcji</h1>
+<p>
+W ramach lekcji można wybrać różne algorytmy "tone mapping" oraz sparametryzować je wedle potrzeby.</p>
+</body>
+</html>

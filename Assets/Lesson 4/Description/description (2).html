@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Korekcja gamma</h1></center>
+
+<h1>Kilka słów wstępu</h1>
+<p>
+Po obliczeniu finałowych kolorów pikseli w scenie trzeba wyświetlić je na monitorze.
+Dawniej większość monitorów stanowiły monitory CRT (ang. cathode-ray tube).<br /> Właściwością tych monitorów było to, że zwiększenie dwukrotnie napięcia wejściowego nie skutkowało dwukrotnym zwiększeniem jasności obrazu.<br />
+Zwiększenie dwukrotnie napięcia skutkuje jasnością równą relacji potęgowej (ang. power relationship) wynoszącej około 2.2, zwaną też gammą monitora.
+<br />Aby lepiej zrozumieć to trudne pojęcie, można spojrzeć na poniższą ilustrację:</p>
+<img src="gamma1.png" alt="Porównanie postrzeganej a fizycznej jasności" hspace="20" vspace="10">
+<p>
+Górny pasek przedstawia na pozór prawidłową dla ludzkiego oka skalę jasności. Zwiększenie dwukrotne jasności (np. z 0.1 do 0.2) faktycznie wygląda dwa razy jaśniej, a zmiany są konsekwentne i stałe.<br />
+Jeśli mówimy jednak o faktycznej fizycznej jasności, o ilości fotonów opuszczających źródło światła, to dolny pasek pokazuje poprawną jasność.<br /> Na dolnym pasku zwiększenie jasności zwraca poprawną fizyczną jasność,
+ale ponieważ nasze oczy inaczej odbierają światło (i są bardziej wrażliwe na zmiany w ciemnych kolorach), wygląda to dla nas trochę dziwnie.</p>
+<p>
+Z tego powodu właśnie jest używany pewien "power relationship" do wyświetlania kolorów wynikowych - oryginalne fizyczne jasności są mapowane do nieliniowych jasności z górnego paska, ponieważ dla naszych oczu wyglądają one lepiej.<br />
+Niestety ponieważ kolory są konfigurowane w oparciu o wyświetlanie monitora, praktycznie wszystkie obliczenia (świetlne) są fizycznie niepoprawne. <br />Staje się to coraz bardziej oczywiste przy użyciu bardziej skomplikowanych algorytmów oświetlenia.
+<br />Zaobserwować różnice można np. na obrazku poniżej:</p>
+<img src="gamma2.png" alt="Porównanie bez i z korekcją gamma" hspace="20" vspace="10">
+<p>
+Widać, że z korekcją gamma kolory bardziej "współpracują" ze sobą, a ciemniejsze obszary stają się trochę mniej ciemne i widoczne jest więcej detali.<br />
+Bez odpowiedniego poprawienia gammy monitora, oświetlenie wygląda po prostu źle i trudno o dobre rezultaty graficzne.
+<br />By to rozwiązać stosujemy korekcję gamma.
+</p>
+<h1>Działanie korekcji gamma</h1>
+<p>
+Ideą korekcji gamma jest zaaplikowanie odwrotności gammy monitora do finałowego koloru wynikowego przed jego wyświetleniem.<br /> Każdy kolor wynikowy mnożymy przez odwrotną (krzywą) gammy, uzyskując jaśniejsze kolory,
+a po ich wyświetleniu na monitorze stosowana jest krzywa gammy, a kolory w rezultacie stają się liniowe.<br /> Mówiąc prostszym językiem, rozjaśniamy kolory tak, że gdy monitor później je przyciemni, wszystko będzie zbalansowane.
+</p>
+<p>Lekcja pozwalać będzie na ustawienie pewnych wartości gammy</p>
+</body>
+</html>

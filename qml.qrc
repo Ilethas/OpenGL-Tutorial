@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Main.qml</file>
+        <file>Button icons/arrow.png</file>
+        <file>Lesson1Options.qml</file>
+        <file>LessonButton.qml</file>
+        <file>GenericOptions.qml</file>
+        <file>Lesson2Options.qml</file>
+        <file>WelcomeScreen.qml</file>
+        <file>Button icons/welcomeScreen.png</file>
+        <file>Button icons/lesson1.png</file>
+        <file>Button icons/lesson3.png</file>
+        <file>Button icons/lesson5.png</file>
+        <file>Button icons/lesson6.png</file>
+        <file>Button icons/lesson7.png</file>
+        <file>Button icons/lesson8.png</file>
+        <file>Button icons/lesson9.png</file>
+        <file>Button icons/lesson2.png</file>
+        <file>Button icons/lesson4.png</file>
+        <file>LightControl.qml</file>
+        <file>Button icons/cancel.png</file>
+        <file>Button icons/minus.png</file>
+        <file>Button icons/plus.png</file>
+        <file>Button icons/drag.png</file>
+        <file>Lesson3Options.qml</file>
+        <file>Lesson4Options.qml</file>
+        <file>Lesson8Options.qml</file>
+        <file>Lesson7Options.qml</file>
+        <file>Lesson5Options.qml</file>
+        <file>Lesson9Options.qml</file>
+        <file>Lesson6Options.qml</file>
+    </qresource>
+</RCC>

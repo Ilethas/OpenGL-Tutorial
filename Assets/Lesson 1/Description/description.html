@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<!-- Będzie jakaś scena i będzie można ustawiać w różnych miejscach światła (spot lighty, directional lighty i point lighty), 
+będzie można przełączyć między obliczaniem oświetlenia metodą phonga phonga-blinna, gouarda i cieniowaniem płaskim, 
+no i chyba chciał jeszcze wireframe, ale to najmniej ważne
+każdemu światłu będzie można ustawiać różne rzeczy, takie jak kolor i inne takie xd
+-->
+<head>
+	<style>
+	html { 
+		background-color: #cfcfcf;
+	}
+	</style>
+</head>
+<body>
+
+<center><h1>Modele oświetlenia</h1></center>
+
+<h1>O oświetleniu słów kilka.</h1>
+<p>
+Oświetlenie w prawdziwym świecie jest bardzo skomplikowane i polega na zbyt wielu czynnikach, by idealnie odwzorować je przy skończonej mocy obliczeniowej.
+Z tego powodu w OpenGL oświetlenie oparte jest o pewne aproksymacje rzeczywistości, które wykorzystują uproszczone modele, łatwiejsze w przetwarzaniu, ale podobne.
+Modele te oparte są o znaną nam fizykę światła.
+</p>
+<h1>Model oświetlenia Phonga</h1>
+<p>
+Główne bloki budujące tego modelu opierają się o 3 komponenty: światło otaczające (ang. ambient lighting), światło rozproszone (ang. diffuse lighting) oraz światło odbite (ang. specular lighting).</p>
+<p>
+Światło otaczające: nawet jeśli jest ciemno, z reguły gdzieś na świecie jest jakieś źródło światła (księżyc, odległe światło), więc obiekty prawie nigdy nie są całkowicie ciemne/niewidoczne.<br />
+By to zasymulować używamy stałego światła otaczającego, które zawsze nadaje obiektom pewien kolor i równomiernie oświetla wszystkie elementy sceny.
+</p>
+<img src="light_ambient.png" alt="Przykład światła otaczającego" vspace="5" hspace="20">
+<p>
+Światło rozproszone: symuluje światło padające bezpośrednio na obiekt z jakiegoś określonego kierunku.<br/> Im bardziej dana część obiektu jest wystawiona na źródło światła, tym jaśniejsza się staje. <br />
+Można powiedzieć, że to światło padające z danego kierunku i rozpraszane na obiekcie we wszystkich kierunkach.
+</p>
+<img src="light_diffuse.png" alt="Przykład światła rozproszonego" vspace="5" hspace="20">
+<p>
+Światło odbite: symuluje jasną plamę światła, która pojawia się na świecących obiektach. Jest to więc światło z danego kierunku odbijane w tym samym kierunku.<br /> Ten jaskrawy punkt skłania się kolorystycznie bardziej ku kolorowi światła, niż kolorowi obiektu.
+</p>
+<img src="light_specular.png" alt="Przykład światła odbitego" vspace="10" hspace="20">
+<p>
+Model Phonga łączy te 3 rodzaje światłą w celu stworzenia realistycznego oświetlenia.
+</p>
+<img src="light_phong.png" alt="Oświetlenie Phonga, po połączeniu" vspace="10" hspace="20">
+<h1>Model Phonga-Blinna</h1>
+<p> Model Phonga-Blinna jest pewnym rozszerzeniem standardowego modelu Phonga. Jest to podstawowy model oświetlenia w OpenGL.
+Modyfikacja polega na innym obliczaniu błyszczących odbić (światła odbitego).<br /> W tym celu najpierw wyliczany jest wektor połówkowy (ang. half-vector), który wskazuje kierunek w połowie drogi pomiędzy kierunkiem światła,
+a kierunkiem patrzenia.<br /> Uzyskiwany jest dzięki temu inny kształt błysków, dużo lepszy dla przypadków, gdzie kąt pomiędzy wektorem patrzenia a wektorem odbicia jest większy niż 90 stopni.<br /> Przykład różnicy:</p>
+<img src="phongblinn.png" alt="Porównanie oświetlenia Phonga i Phonga-Blinna" vspace="10" hspace="20">
+<h1>Cieniowanie Gourauda</h1>
+<p>
+We wczesnych dniach shaderów oświetlenia, deweloperzy implementowali model Phonga w shaderze wierzchołkowym (ang. vertex shader). Nazywane jest to w takim przypadku cieniowaniem Gourada. <br /> Zaletą tego była duża wydajność, ponieważ wierzchołków z reguły jest dużo mniej od fragmentów,
+więc obliczenia oświetleniowe były rzadziej wykonywane.<br /> Niestety w tym przypadu wartość koloru w vertex shaderze jest wynikowym kolorem oświetlenia tego jednego danego wierzchołka, a wartości kolorów otaczających fragmentów,
+są rezultatem interpolacji.<br /> Dla mniejszej ilości wierzchołków oświetlenie nie wygląda wtedy tak realistycznie (z powodu interpolacji).<br /> Poniżej porównanie:</p>
+<img src="gouraudphong.png" alt="Porównanie oświetlenia Phonga i Gourauda" vspace="10" hspace="20">
+<h1>Cieniowanie płaskie</h1>
+<p>
+Jedna z najstarszych metod cieniowania. Cieniuje każdy poligon obiektu na podstawie kąta między normalną powierzchni poligonu i kierunkiem źródła światła, koloru obiektu i intensywności światła.<br />
+Nie są używane żadne bardziej skomplikowane algorytmy rozpraszania/odbicia światła. Z tego powodu wszystkie poligony odbijają światło jak płaska powierzchnia, co daje obiektowi "kanciasty" wygląd.<br />
+Zaletą jest to, że ponieważ nie ma żadnej matematycznej korekcji, metoda ta wymaga bardzo niewielkich obliczeń.<br /> Poniżej przykład porównania cieniowania płaskiego z metodą Phonga, dla identycznego obiektu:</p>
+<img src="flat.png" alt="Porównanie płaskiego cieniowania i modelu Phonga" vspace="10" hspace="20">
+</p>
+<h1>Rodzaje światła</h1>
+<p>
+<ul>
+	<li> Spotlight - światło, którego promienie padają w kształcie stożka, niczym reflektor (stąd nazwa). Promienie światła nie są do siebie równoległe, ale zachowują w miarę pewien konkretny kierunek. </li>
+	<li> Directional light - światło świecące w jednym, konkretnym kierunku. Wszystkie promienie światła są w tym przypadku równoległe do siebie. Prawdziwe światła kierunkowe raczej nie są obecne w przyrodzie,
+	ale w grafice komputerowej używa się ich do imitowania silnych źródeł światła położonych bardzo daleko, jak np. Słońce. </li>
+	<li> Point light - światło, które emituje takie same ilości światła w każdym kierunku. Poligony i ich fragmenty bliżej światła będą wydawać się jaśniejsze od tych położonych dalej. </li>
+</ul>
+</p>
+<h1>Działanie lekcji</h1>
+<p>
+Lekcja pierwsza umożliwia ustawianie w różnych miejscach sceny świateł różnych rodzajów (spotlight, directional, point). <br />Możliwe jest również przełączanie trybu oświetlenia, dostępne są model Phonga, Phonga-Blinna, cieniowanie Gourauda i cieniowanie płaskie.
+<br />Ponadto każde światło będzie można sparametryzować, ustawiając mu np. kolor i wartości innych cech.
+</p>
+</body>
+</html>
